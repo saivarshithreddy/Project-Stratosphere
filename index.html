@@ -369,9 +369,12 @@
                     attributionControl: false
                 });
                 
-                // Dark space-themed tiles
-                L.tileLayer('https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png', {
-                    maxZoom: 18
+                // Dark space-themed tiles with HTTPS and error handling
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    maxZoom: 19,
+                    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                }).on('tileerror', function(error) {
+                    console.error('Error loading map tiles:', error);
                 }).addTo(this.map);
                 
                 // Custom zoom control
@@ -732,6 +735,9 @@
         // Event listeners with enhanced safety
         document.addEventListener('DOMContentLoaded', () => {
             try {
+                // Initialize the map
+                intelligence = new WindBorneIntelligence();
+                
                 // Add a small delay to ensure DOM is fully ready
                 setTimeout(() => {
                     try {
